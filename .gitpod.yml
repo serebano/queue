@@ -1,6 +1,9 @@
+ports:
+  - port: 3000
+    onOpen: open-preview
+
 tasks:
-  - before: |
-      yarn
+  - init: yarn && gp sync-done install
 
   - name: receiver
     before: |
@@ -8,7 +11,7 @@ tasks:
       export CONCURRENCY=2
       export PORT=3000
       export APP_URL=$(gp url 3000)
-    command: yarn start:receiver
+    command: gp sync-await install && yarn start:receiver
 
   - name: sender
     before: |
@@ -16,5 +19,6 @@ tasks:
       export CONCURRENCY=2
       export PORT=3000
       export APP_URL=$(gp url 3000)
-    command: yarn start:sender
+    command: gp sync-await install && yarn start:sender
+    
     openMode: split-right
