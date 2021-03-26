@@ -1,14 +1,20 @@
 tasks:
   - before: |
+      yarn
+
+  - name: receiver
+    before: |
       export REDIS_URL=redis://root:pass@51.91.140.153:6379
       export CONCURRENCY=2
       export PORT=3000
       export APP_URL=$(gp url 3000)
-      yarn
-
-  - name: receiver
     command: yarn start:receiver
 
   - name: sender
+    before: |
+      export REDIS_URL=redis://root:pass@51.91.140.153:6379
+      export CONCURRENCY=2
+      export PORT=3000
+      export APP_URL=$(gp url 3000)
     command: yarn start:sender
     openMode: split-right
