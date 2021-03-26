@@ -27,21 +27,6 @@
     "micri": "~4.3.0",
     "to-query": "~1.6.1"
   },
-  "devDependencies": {
-    "@commitlint/cli": "latest",
-    "@commitlint/config-conventional": "latest",
-    "conventional-github-releaser": "latest",
-    "finepack": "latest",
-    "git-authors-cli": "latest",
-    "git-dirty": "latest",
-    "husky": "latest",
-    "lint-staged": "latest",
-    "npm-check-updates": "latest",
-    "prettier-standard": "latest",
-    "standard": "latest",
-    "standard-markdown": "latest",
-    "standard-version": "latest"
-  },
   "engines": {
     "node": ">= 8"
   },
@@ -50,57 +35,8 @@
   ],
   "scripts": {
     "clean": "rm -rf node_modules",
-    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
-    "lint": "standard-markdown README.md && standard",
-    "postinstall": "husky install",
-    "postrelease": "npm run release:tags && npm run release:github",
-    "precommit": "lint-staged",
-    "prerelease": "npm run update:check && npm run contributors",
-    "pretest": "npm run lint",
-    "pretty": "prettier-standard index.js {core,test,bin,scripts}/**/*.js --single-quote --print-width 100",
-    "release": "standard-version -a",
-    "release:github": "conventional-github-releaser -p angular",
-    "release:tags": "git push --follow-tags origin HEAD:master",
     "start:receiver": "DEBUG=queue* node src/receiver.js",
-    "start:sender": "DEBUG=queue* node src/sender.js",
-    "test": "exit 0",
-    "update": "ncu -u",
-    "update:check": "ncu -- --error-level 2"
+    "start:sender": "DEBUG=queue* node src/sender.js"
   },
-  "license": "MIT",
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "linters": {
-      "package.json": [
-        "finepack",
-        "git add"
-      ],
-      "*.js": [
-        "prettier-standard",
-        "git add"
-      ],
-      "*.md": [
-        "standard-markdown",
-        "git add"
-      ]
-    },
-    "package.json": [
-      "finepack"
-    ]
-  },
-  "standard-version": {
-    "scripts": {
-      "prechangelog": "git-authors-cli"
-    }
-  }
+  "license": "MIT"
 }

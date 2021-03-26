@@ -1,0 +1,18 @@
+tasks:
+  - before: |
+      echo '
+      export REDIS_URL=redis://root:pass@51.91.140.153:6379
+      export CONCURRENCY=2
+      export PORT=300
+      export APP_URL=$(gp url 300)
+      ' >> ~/.bashrc;
+      exit;
+
+  - init: yarn
+
+  - name: receiver
+    command: yarn start:receiver
+
+  - name: sender
+    command: yarn start:sender
+    openMode: split-right
