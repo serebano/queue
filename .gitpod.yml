@@ -10,7 +10,7 @@ tasks:
       export REDIS_URL=redis://root:pass@51.91.140.153:6379
       export CONCURRENCY=2
       export PORT=3000
-      export APP_URL=$(gp url 3000)
+      export API_URL=$(gp url 3000)
     command: gp sync-await install && yarn start:receiver
 
   - name: sender
@@ -18,7 +18,7 @@ tasks:
       export REDIS_URL=redis://root:pass@51.91.140.153:6379
       export CONCURRENCY=2
       export PORT=3000
-      export APP_URL=$(gp url 3000)
+      export API_URL=$(gp url 3000)
     command: gp sync-await install && yarn start:sender
     
     openMode: split-right

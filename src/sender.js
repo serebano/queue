@@ -4,7 +4,7 @@ const debug = require('debug-logfmt')('queue:sender')
 const { serve, send, Router } = require('micri')
 const toQuery = require('to-query')()
 
-const { PORT } = require('./constants')
+const { PORT, API_URL } = require('./constants')
 const queue = require('./queue')
 
 const { router, on, otherwise } = Router
@@ -19,8 +19,10 @@ const route = router(
 
     const { priority, delay } = query
     const { id } = await queue.add(query, { priority, delay })
+    
+    debug(`job[${id}]`, query)
 
-    return send(res, 201, { id })
+    return send(res, 201, { id, query })
   })
 )
 
